@@ -1,0 +1,27 @@
+{% extends "home.html" %} {% block content %}
+
+<h1>{{show.Name}}</h1>
+Price: {{show. Ticket_Price}}
+Time: {{show.Time}}
+
+<form
+    action="{{url_for('book_show', VID = VID, SID = show.ID)}}"
+    class="form-container"
+    method="POST"
+>
+
+    <label for="email"><b>Number of tickets</b></label>
+    <input
+    type="number"
+    placeholder="No. of tickets"
+    name="Number_of_Tickets"
+    id="capacity"
+    min="1"
+    max="{{show.venue_details.Capacity - show.Booked_tickets}}"
+    required
+    />
+    <button type="submit" class="btn" id="booked">Book now</button>
+
+</form>
+
+  {% endblock %}

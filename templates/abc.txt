@@ -1,0 +1,5 @@
+index page => search -- showing whole list without giving a single word
+user page => book show -- after booking, giving error ( seats not available message)
+admin page => edit_by_admin -- nothing is showing
+admin page => delete_by_admin -- giving an error
+admin page => id of venue is not showing list but create form is there

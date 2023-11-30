@@ -1,0 +1,830 @@
+openapi: 3.0.3
+info:
+  title: Moviestan - OpenAPI 3.0
+  description: |-
+    This is the API for the flask app "Moviestan".
+  version: 0.0.1
+servers:
+  - url: http://127.0.0.1:5000
+tags:
+  - name: Venue
+    description: Everything about Venues.
+  - name: Show
+    description: Everything about shows.
+  - name: Member
+    description: Everything about User.
+  - name: Booking
+    description: Descriptions about booked shows.
+paths:
+  /api/venue:
+    post:
+        tags:
+          - Venue
+        summary: "Create a new venue"
+        requestBody:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  admin_email:
+                    type: string
+                    example: "admin@moviestan.com"
+                  venue_name:
+                    type: string
+                    example: "Cinepolis"
+                  venue_place:
+                    type: string
+                    example: "Delhi"
+                  venue_capacity:
+                    type: integer
+                    example: 300
+        responses:
+          '201':
+            description: "Successfully created"
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    ID:
+                      type: integer
+                      example: 5
+                    Name:
+                      type: string
+                      example: "Cinepolis"
+                    Place:
+                      type: string
+                      example: "Delhi"
+                    Capacity:
+                      type: integer
+                      example: 300
+          '409':
+            description: "Venue already exists"
+            content:
+              text/plain; charset=utf-8:
+                schema:
+                  title: AlreadyExistsError
+                  type: string
+                  example: 'Resource already exists'
+          '500':
+            description: "Internal server error"
+  /api/venue/{venue_id}:
+    get:
+      tags:
+        - Venue
+      summary: "Find venue by ID"
+      parameters:
+        - in: path
+          name: venue_id
+          required: true
+          schema:
+            type: integer
+            example: 5
+      responses:
+        '200':
+          description: 'Request Successful'
+          content:
+            application/json:
+              schema:
+                title: venue object
+                type: object
+                properties:
+                  ID:
+                    type: integer
+                    example: 5
+                  Name:
+                    type: string
+                    example: 'Cinepolis'
+                  Place:
+                    type: string
+                    example: 'Delhi'
+                  Capacity:
+                    type: integer
+                    example: 300
+        '404':
+          description: 'Resource not found'
+          content:
+            text/plain; charset=utf-8:
+              schema:
+                title: NotFoundError
+                type: string
+                example: 'The requested resource was not found!'
+        '500':
+          description: 'Internal Server Error'
+    put:
+      tags:
+        - Venue
+      summary: Update an existing venue
+      parameters:
+        - in: path
+          name: venue_id
+          required: true
+          schema:
+            type: integer
+            example: 5
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                admin_email:
+                  type: string
+                  example: "admin@moviestan.com"
+                venue_name:
+                  type: string
+                  example: "Cinepolis"
+                venue_place:
+                  type: string
+                  example: "Delhi"
+                venue_capacity:
+                  type: integer
+                  example: 250
+      responses:
+        '200':
+          description: "Successfuly updated"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ID:
+                    type: integer
+                    example: 5
+                  Name:
+                    type: string
+                    example: "Cinepolis"
+                  Place:
+                    type: string
+                    example: "Delhi"
+                  Capacity:
+                    type: integer
+                    example: 250
+        '404':
+          description: 'Resource not found'
+          content:
+            text/plain; charset=utf-8:
+              schema:
+                title: NotFoundError
+                type: string
+                example: 'The requested resource was not found!'
+        '500':
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - Venue
+      summary: Delete a venue
+      parameters:
+        - in: path
+          name: venue_id
+          required: true
+          schema:
+            type: integer
+            example: 5
+      responses:
+        '200':
+          description: "Successfully deleted"
+        '404':
+          description: 'Resource not found'
+          content:
+            text/plain; charset=utf-8:
+              schema:
+                title: NotFoundError
+                type: string
+                example: 'The requested resource was not found!'
+        '500':
+          description: "Intenal Server Error"
+  /api/show:
+    post:
+      tags:
+        - Show
+      summary: "Create a new show"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                show_name:
+                  type: string
+                  example: "wonderwomen"
+                show_rating:
+                  type: integer
+                  example: 8
+                show_tags:
+                  type: string
+                  example: "action"
+                show_time:
+                  type: string
+                  example: "2023-03-26T15:08"
+                show_ticketprice:
+                  type: integer
+                  example: 200
+                show_VID:
+                  type: integer
+                  example: 2
+                show_bt:
+                  type: integer
+                  example: 387
+      responses:
+        '201':
+          description: Successfully created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ID:
+                    type: integer
+                    example: 3
+                  Name:
+                    type: string
+                    example: "wonderwomen"
+                  Rating:
+                    type: integer
+                    example: 8
+                  Tags:
+                    type: string
+                    example: "action"
+                  Time:
+                    type: string
+                    example: "2023-03-26T15:08"
+                  Ticket_Price:
+                    type: integer
+                    example: 200
+                  V_ID:
+                    type: integer
+                    example: 2
+                  Booked_tickets:
+                    type: integer
+                    example: 387
+        '409':
+          description: "Venue already exists"
+          content:
+            text/plain; charset=utf-8:
+              schema:
+                title: AlreadyExistsError
+                type: string
+                example: 'Resource already exists'
+        '500':
+          description: Internal server error
+  /api/show/{show_id}:
+    get:
+      tags:
+        - Show
+      summary: "Find a show by ID"
+      parameters:
+        - in: path
+          name: show_id
+          required: true
+          schema:
+            type: integer
+            example: 3
+      responses:
+        '200':
+          description: Request successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ID:
+                    type: integer
+                    example: 3
+                  Name:
+                    type: string
+                    example: "wonderwomen"
+                  Rating:
+                    type: integer
+                    example: 8
+                  Tags:
+                    type: string
+                    example: "action"
+                  Time:
+                    type: string
+                    example: "2023-03-26T15:08"
+                  Ticket_Price:
+                    type: integer
+                    example: 200
+                  V_ID:
+                    type: integer
+                    example: 2
+                  Booked_tickets:
+                    type: integer
+                    example: 387
+        '404':
+          description: Resource not found
+          content:
+            text/plain; charset=utf-8:
+              schema:
+                title: NotFoundError
+                type: string
+                example: 'The requested resource was not found!'
+        '500':
+          description: Internal server error
+    put:
+      tags:
+        - Show
+      summary: "Update an existing show"
+      parameters:
+        - in: path
+          name: show_id
+          required: true
+          schema:
+            type: integer
+            example: 5
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                show_name:
+                  type: string
+                  example: "Wonder Woman"
+                show_bt:
+                  type: integer
+                  example: 386
+      responses:
+        '200':
+          description: Successfully updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ID:
+                    type: integer
+                    example: 3
+                  Name:
+                    type: string
+                    example: "Wonder Woman"
+                  Rating:
+                    type: integer
+                    example: 8
+                  Tags:
+                    type: string
+                    example: "action"
+                  Time:
+                    type: string
+                    example: "2023-03-26T15:08"
+                  Ticket_Price:
+                    type: integer
+                    example: 200
+                  V_ID:
+                    type: integer
+                    example: 2
+                  Booked_tickets:
+                    type: integer
+                    example: 386
+        '404':
+          description: Resource not found
+          content:
+            text/plain; charset=utf-8:
+              schema:
+                title: NotFoundError
+                type: string
+                example: 'The requested resource was not found!'
+        '500':
+          description: Internal server error
+    delete:
+      tags:
+        - Show
+      summary: "Delete a show"
+      parameters:
+        - in: path
+          name: show_id
+          required: true
+          schema:
+            type: integer
+            example: 3
+      responses:
+        '200':
+          description: "Successfully deleted"
+        '404':
+          description: 'Resource not found'
+          content:
+            text/plain; charset=utf-8:
+              schema:
+                title: NotFoundError
+                type: string
+                example: 'The requested resource was not found!'
+        '500':
+          description: "Intenal Server Error"
+          
+          
+  /api/member:
+    post:
+      tags:
+        - Member
+      summary: "Add a new member"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                m_fname:
+                  type: string
+                  example: "Nidhi"
+                m_lname:
+                  type: string
+                  example: "Gautam"
+                m_email:
+                  type: string
+                  example: "admin@moviestan.com"
+                m_password:
+                  type: string
+                  example: "admin15"
+                m_designation:
+                  type: string
+                  example: "admin"
+                m_location:
+                  type: string
+                  example: "Chennai"
+                
+      responses:
+        '201':
+          description: Successfully created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  First_name:
+                    type: string
+                    example: "Nidhi"
+                  Last_name:
+                    type: string
+                    example: "Gautam"
+                  email_ID:
+                    type: string
+                    example: "admin@moviestan.com"
+                  Password:
+                    type: string
+                    example: "admin15"
+                  Designation:
+                    type: string
+                    example: "admin"
+                  Location:
+                    type: string
+                    example: "Chennai"
+                  V_ID:
+                    type: integer
+                    example: 2
+                  
+        '409':
+          description: "Member already exists"
+          content:
+            text/plain; charset=utf-8:
+              schema:
+                title: AlreadyExistsError
+                type: string
+                example: 'Resource already exists'
+        '500':
+          description: Internal server error
+
+
+  /api/member/{member_id}:
+    get:
+      tags:
+        - Member
+      summary: "Find a member by ID"
+      parameters:
+        - in: path
+          name: member_id
+          required: true
+          schema:
+            type: integer
+            example: 3
+      responses:
+        '200':
+          description: Request successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  First_name:
+                    type: string
+                    example: "Nidhi"
+                  Last_name:
+                    type: string
+                    example: "Gautam"
+                  email_ID:
+                    type: string
+                    example: "admin@moviestan.com"
+                  Password:
+                    type: string
+                    example: "admin15"
+                  Designation:
+                    type: string
+                    example: "admin"
+                  Location:
+                    type: string
+                    example: "Chennai"
+                  
+        '404':
+          description: Resource not found
+          content:
+            text/plain; charset=utf-8:
+              schema:
+                title: NotFoundError
+                type: string
+                example: 'The requested resource was not found!'
+        '500':
+          description: Internal server error
+    put:
+      tags:
+        - Member
+      summary: "Update an existing member's detail"
+      parameters:
+        - in: path
+          name: member_id
+          required: true
+          schema:
+            type: integer
+            example: 5
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                m_fname:
+                  type: string
+                  example: "Nidhiii"
+                m_lname:
+                  type: string
+                  example: "Gautammm"
+      responses:
+        '200':
+          description: Successfully updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  First_name:
+                    type: string
+                    example: "Nidhiii"
+                  Last_name:
+                    type: string
+                    example: "Gautammm"
+                  email_ID:
+                    type: string
+                    example: "admin@moviestan.com"
+                  Password:
+                    type: string
+                    example: "admin15"
+                  Designation:
+                    type: string
+                    example: "admin"
+                  Location:
+                    type: string
+                    example: "Chennai"
+                 
+        '404':
+          description: Resource not found
+          content:
+            text/plain; charset=utf-8:
+              schema:
+                title: NotFoundError
+                type: string
+                example: 'The requested resource was not found!'
+        '500':
+          description: Internal server error
+    delete:
+      tags:
+        - Member
+      summary: "Delete a member"
+      parameters:
+        - in: path
+          name: member_id
+          required: true
+          schema:
+            type: integer
+            example: 3
+      responses:
+        '200':
+          description: "Successfully deleted"
+        '404':
+          description: 'Resource not found'
+          content:
+            text/plain; charset=utf-8:
+              schema:
+                title: NotFoundError
+                type: string
+                example: 'The requested resource was not found!'
+        '500':
+          description: "Intenal Server Error"
+          
+          
+  /api/booking:
+    post:
+      tags:
+        - Booking
+      summary: "Create a new booking"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                b_ID:
+                  type: integer
+                  example: 2
+                b_sID:
+                  type: integer
+                  example: 1
+                b_uemail:
+                  type: string
+                  example: "queen@moviestan"
+                b_price:
+                  type: integer
+                  example: 200
+                b_ticketnum:
+                  type: integer
+                  example: 2
+                
+      responses:
+        '201':
+          description: Successfully created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Booking_ID:
+                    type: integer
+                    example: 2
+                  Show_ID:
+                    type: integer
+                    example: 1
+                  User_email:
+                    type: string
+                    example: "queen@moviestan"
+                  Price:
+                    type: integer
+                    example: 200
+                  Number_of_Tickets:
+                    type: integer
+                    example: 2
+                  
+        '409':
+          description: "Booking already exists"
+          content:
+            text/plain; charset=utf-8:
+              schema:
+                title: AlreadyExistsError
+                type: string
+                example: 'Resource already exists'
+        '500':
+          description: Internal server error
+
+
+  
+
+  /api/booking/{booking_id}:
+    get:
+      tags:
+        - Booking
+      summary: "Find a booking by ID"
+      parameters:
+        - in: path
+          name: booking_id
+          required: true
+          schema:
+            type: integer
+            example: 3
+      responses:
+        '200':
+          description: Request successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Booking_ID:
+                    type: integer
+                    example: "Nidhi"
+                  Show_ID:
+                    type: integer
+                    example: "Gautam"
+                  User_email:
+                    type: string
+                    example: "admin@moviestan.com"
+                  Price:
+                    type: integer
+                    example: "admin15"
+                  Number_of_Tickets:
+                    type: integer
+                    example: "admin"
+                  
+        '404':
+          description: Resource not found
+          content:
+            text/plain; charset=utf-8:
+              schema:
+                title: NotFoundError
+                type: string
+                example: 'The requested resource was not found!'
+        '500':
+          description: Internal server error
+    put:
+      tags:
+        - Booking
+      summary: "Update an existing booking's detail"
+      parameters:
+        - in: path
+          name: booking_id
+          required: true
+          schema:
+            type: integer
+            example: 5
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                Price:
+                  type: integer
+                  example: 500
+                Number_of_Tickets:
+                  type: integer
+                  example: 5
+      responses:
+        '200':
+          description: Successfully updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Booking_ID:
+                    type: integer
+                    example: 2
+                  Show_ID:
+                    type: integer
+                    example: 1
+                  User_email:
+                    type: string
+                    example: "queen@moviestan"
+                  Price:
+                    type: integer
+                    example: 500
+                  Number_of_Tickets:
+                    type: integer
+                    example: 5
+                  
+                 
+        '404':
+          description: Resource not found
+          content:
+            text/plain; charset=utf-8:
+              schema:
+                title: NotFoundError
+                type: string
+                example: 'The requested resource was not found!'
+        '500':
+          description: Internal server error
+    delete:
+      tags:
+        - Booking
+      summary: "Delete a booking"
+      parameters:
+        - in: path
+          name: booking_id
+          required: true
+          schema:
+            type: integer
+            example: 3
+      responses:
+        '200':
+          description: "Successfully deleted"
+        '404':
+          description: 'Resource not found'
+          content:
+            text/plain; charset=utf-8:
+              schema:
+                title: NotFoundError
+                type: string
+                example: 'The requested resource was not found!'
+        '500':
+          description: "Intenal Server Error"
+          
+
+
+
+
+
+
+
+
+
+
+
+
+        

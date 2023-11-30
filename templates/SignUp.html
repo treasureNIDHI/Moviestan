@@ -1,0 +1,47 @@
+
+{% extends "home.html" %}
+{% block content %}
+    
+    <div style="margin-top: 70px; margin-left: 550px; margin-right: 550px; padding: 2em;
+    padding-top: 0em;
+    position:absolute; border-radius: 10px; 
+    border: 5px solid rgb(75, 24, 177);
+    background-color: rgba(39, 40, 33, 0.7);">
+        <form action="{{url_for('signup')}}" method="POST" id="create-form">
+            <h3 style="margin-left: 20px; margin-bottom: 20px; margin-top: 20px; color: rgb(219, 97, 211); font-weight: bold; font-family:Georgia, 'Times New Roman', Times, serif; text-shadow: 2px 1px white;" >Register to Moviestan</h3>
+            <div style="color: antiquewhite;"  class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">First Name</label>
+            <input type="text" name="First_name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            <div style="color: antiquewhite;"  class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Last Name</label>
+            <input type="text" name="Last_name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            <div style="color: antiquewhite;"  class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Designation</label>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="Designation" id="Admin" value="admin">
+                <label class="form-check-label" for="Admin">
+                  Admin
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="Designation" id="Member" value="Member" checked>
+                <label class="form-check-label" for="Member">
+                  Member
+                </label>
+              </div>
+            <label for="exampleInputEmail1" class="form-label">Email ID</label>
+            <input type="email" name="email_ID" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            
+            </div>
+            <div style="color: antiquewhite;"  class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <input type="password" name="Password" class="form-control" id="exampleInputPassword1">
+            <div style="color: aquamarine;" id="emailHelp" class="form-text">We'll never share your password with anyone else.</div>
+            </div>
+            <button type="submit" value="submit" class="btn btn-primary">SignUp</button>
+            
+            <br>
+            <p style="color: aliceblue;">Already have an account...?&nbsp;<a style="color: aqua;" href="/login" alt="oops">LogIn here</a></p>
+        </form>
+    </div>
+    {% endblock %}

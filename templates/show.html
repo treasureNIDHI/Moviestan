@@ -1,0 +1,86 @@
+{% extends "home.html" %}
+{% block content %}
+    {% if create == "False" %}
+    <div>
+    <h1><center>{{venue}}</center></h1>
+    <table id="Show">
+        <tr>
+            <th>ID &nbsp; &nbsp;</th>
+            <th>Name &nbsp; &nbsp;</th>
+            <th>Rating &nbsp; &nbsp;</th>
+            <th>Tags &nbsp; &nbsp;</th>
+            <th>Ticket_Price &nbsp; &nbsp;</th>
+            {% if current_user.Designation == 'admin'%}
+            <th>Edit Show &nbsp; &nbsp;</th>
+            <th>Delete Show &nbsp; &nbsp;</th>
+            {%endif%}
+            <th>Book Show </th>
+            
+        </tr>
+        
+        {% for s in shows %}
+        <tr>
+            
+            
+            <td>{{s['ID']}}</td>
+            <td>{{s['Name']}}</td>
+            <td>{{s['Rating']}}</td>
+            <td>{{s['Tags']}}</td>
+            <td>{{s['Ticket_Price']}}</td>
+            {% if current_user.Designation == 'admin'%}
+            <td><a href="{{url_for('edit_show', ID = s.ID, VID=VID)}}"><button>Edit</button></a></td>
+            <td><a href="{{url_for('delete_show', ID = s.ID, VID=VID)}}"><button>Delete</button></a></td>
+            {%endif%}
+            <td><button
+                class="open-button"
+                onclick="window.location.href='{{url_for('book_show', SID = s.ID, VID = VID)}}'"
+              >
+                Book now
+              </button></td>
+        </tr>
+      
+            {% endfor %}
+    </table>
+    
+    
+
+    </div>
+    {% else %}
+    
+    <div style="margin-top: 70px; margin-left: 550px; margin-right: 550px; padding: 2em;
+    padding-top: 0em;
+    position:absolute; border-radius: 10px; 
+    border: 5px solid rgb(75, 24, 177);
+    background-color: rgba(39, 40, 33, 0.7);">
+            <form action="{{url_for('add_show', ID=VID)}}"  method="POST" id="create-form">
+                <h3 style="margin-left: 20px; margin-bottom: 20px; margin-top: 20px; color: rgb(219, 97, 211); font-weight: bold; font-family:Georgia, 'Times New Roman', Times, serif; text-shadow: 2px 1px white;">Create Shows</h3>
+                <!-- <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">ID</label>
+                <input type="text" name="ID" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"> -->
+                <div style="color: aquamarine;" class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Name</label>
+                <input type="text" name="Name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required >
+                <div style="color: aquamarine;" class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Rating</label>
+                <input type="text" name="Rating" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required >
+                <div style="color: aquamarine;" class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Tags</label>
+                <input type="text" name="Tags" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required >
+                <div style="color: aquamarine;" class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Time</label>
+                <input type="datetime-local" name="Time" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required >
+                <div style="color: aquamarine;" class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Ticket_Price</label>
+                <input type="text" name="Ticket_Price" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required ><br>
+                <button type="submit" value="submit" class="btn btn-primary">Save Changes</button>
+                <br>
+            </form>
+    </div>
+
+   
+    {% endif %} 
+{% if current_user.Designation == 'admin'%}
+<a href="{{url_for('add_show', ID=VID)}}"><button>Create</button></a>
+{%endif%}
+ 
+{% endblock %}

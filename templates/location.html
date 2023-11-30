@@ -1,0 +1,15 @@
+{% extends "home.html" %} {% block content %}
+
+<table style="background:lightpink; border-radius:2px">
+    <th>Location</th>
+    {% for i in locations%}
+    <tr>
+        <td><a href="{{url_for('set_location',loc=i)}}">{{i}}</a></td>
+    </tr>
+    {%endfor%}
+    
+</table>
+
+{%endblock%}
+
+

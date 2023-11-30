@@ -1,0 +1,17 @@
+{% extends "home.html" %} {% block content %}
+
+<table style="background:white">
+    <th>Booking ID</th>
+    <th>Show Name</th>
+    <th>No. of tickets</th>
+    
+    {% for booking in booked_show%}
+    <tr>
+        <td>{{booking['Booking_ID']}}</td>
+        <td>{{booked_dict[booking.Booking_ID]}}</td>
+        <td>{{booking['Number_of_Tickets']}}
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

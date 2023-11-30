@@ -1,0 +1,35 @@
+
+
+{% extends "home.html" %}
+{% block content %}
+
+
+    
+
+    <div style="margin-top: 100px; margin-left: 550px; margin-right: 550px; padding: 2em;
+    padding-top: 0em;
+    position:absolute; border-radius: 10px;
+    border: 5px solid rgb(75, 24, 177);
+    background-color: rgba(39, 40, 33, 0.7);"> 
+        <form action="{{url_for('login')}}" method="POST" id="create-form">
+            <h3 style="margin-left: 20px; margin-bottom: 20px; margin-top: 20px; color: rgb(219, 97, 211); font-weight: bold; font-family:Georgia, 'Times New Roman', Times, serif; text-shadow: 2px 1px white;">Welcome to Moviestan</h3>
+            <div style="color: antiquewhite;"  class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">User ID</label>
+            <input name="email_ID" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            
+            </div>
+            <div style="color: antiquewhite;"  class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <input name= "Password" type="password" class="form-control" id="exampleInputPassword1">
+            <div style="color: aquamarine;"  id="emailHelp" class="form-text">We'll never share your password with anyone else.</div>
+            </div>
+            <button type="submit" class="btn btn-primary">LogIn</button>
+          
+            <br>
+            <p style="color: aliceblue;">Don't have an account...?&nbsp;<a style="color: aqua;"   href="/signup" alt="oops">register now</a></p>
+        </form>
+    </div>
+
+    
+
+{% endblock %}

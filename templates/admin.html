@@ -1,0 +1,104 @@
+{% extends "home.html" %}
+{% block content %}
+{% if create == 'False' %}
+    <div>
+    <h1><center>Venue</center></h1>
+    <table style="border: 5px solid green;" id="Venue">
+        <tr>
+            
+            <th>&nbsp;&nbsp;ID  &nbsp; &nbsp;</th>
+            <th>Name &nbsp; &nbsp;</th>
+            <th>Place &nbsp; &nbsp;</th>
+            <th>Capacity &nbsp; &nbsp;</th>
+            {% if current_user.Designation == 'admin'%}
+            <th>Edit Venue &nbsp; &nbsp;</th>
+            <th>Delete Venue &nbsp; &nbsp;</th>
+            {%endif%}
+        </tr>
+        
+        <tr>
+        {% for Venue in Venues %}
+            
+            
+            <td>&nbsp;&nbsp; <a href="{{url_for('shows', ID = Venue.ID)}}">{{Venue['ID']}}</a></td>
+            <td>{{Venue['Name']}}</td>
+            <td>{{Venue['Place']}}</td>
+            <td>&nbsp; &nbsp;{{Venue['Capacity']}}</td>
+            {% if current_user.Designation == 'admin'%}
+            <td><a href="{{url_for('edit_venue', ID = Venue.ID)}}"><button>Edit</button></a></td>
+            <td><a href="{{url_for('delete_venue', ID = Venue.ID)}}">
+                <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" class="modal fade" id="exampleModal" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Delete
+            </button>
+        </a></td>
+        {%endif%}
+    </tr>
+  
+  <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                    asdljhgas
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+
+
+            
+      
+       {%endfor%}
+    </table>
+    <br>
+    {% if current_user.Designation == 'admin'%}
+    <a style="margin: 20px;" href="{{url_for('add_venue')}}"><button>Create</button></a>
+    {%endif%}
+    
+
+</div>
+{% else %}
+<div> 
+  <div style="margin-top: 150px; margin-left: 550px; margin-right: 550px; padding: 2em;
+  padding-top: 0em;
+  position:absolute; border-radius: 10px; 
+  border: 5px solid rgb(75, 24, 177);
+  background-color: rgba(39, 40, 33, 0.7);">
+        <form action="{{url_for('add_venue')}}" method="POST" id="create-form">
+            <h3 style="margin-left: 20px; margin-bottom: 20px; margin-top: 20px; color: rgb(219, 97, 211); font-weight: bold; font-family:Georgia, 'Times New Roman', Times, serif; text-shadow: 2px 1px white;">Create the Venue</h3>
+            <!-- <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">ID</label>
+            <input type="text" name="ID" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"> -->
+            <div style="color: aquamarine;" class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Place</label>
+            <input type="text" name="Place" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+            <div style="color: aquamarine;" class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Capacity</label>
+            <input type="text" name="Capacity" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+            <div style="color: aquamarine;" class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Name</label>
+            <input type="text" name="Name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required><br>
+            <button type="submit" value="submit" class="btn btn-primary">Save Changes</button>
+            <br>
+        </form>
+    </div>
+
+</div>
+
+   
+
+{%endif%}   
+
+  
+{% endblock %}
+  

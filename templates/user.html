@@ -1,0 +1,49 @@
+{% extends "home.html" %} {% block content %}
+
+<div id="show_table">
+  <h1><center>Shows</center></h1>
+  <br />
+  <form action=""></form>
+  <table id="Show" style="margin: 30px; border: 2px solid green; background:rgba(0, 255, 0, 0.3);">
+    <tr>
+      <th>ID &nbsp;</th>
+      <th>Show Name &nbsp;</th>
+      <th>Rating &nbsp;&nbsp;</th>
+      <th>Ticket Price &nbsp;&nbsp;</th>
+      <th>Time</th>
+      <th>Tags &nbsp; &nbsp;</th>
+      <th>Venue Name &nbsp;&nbsp;</th>
+      <th>Place</th>
+    </tr>
+
+    <tr>
+      {% for show in Venues %}
+
+      <td>{{show['ID']}}</td>
+      <td>{{show['Name']}}</td>
+      <td>{{show['Rating']}}</td>
+      <td>{{show['Ticket_Price']}}</td>
+      <td>{{show['Time']}} &nbsp; &nbsp;</td>
+      <td>{{show['Tags']}}</td>
+      <td><a style="color:red"href="{{url_for('shows', ID=show.venue_details.ID)}}">{{show.venue_details.Name}}</td>
+      <td>{{show.venue_details.Place}}</td>
+      <td>
+        {% if current_user.is_authenticated %}
+        <button
+          class="open-button"
+          onclick="window.location.href='{{url_for('book_show', SID=show['ID'], VID=show.venue_details.ID)}}';"
+        >
+          Book now
+        </button>
+        {%else%}
+        
+        <button onclick="window.location.href='{{url_for('login')}}';">Book now</button>
+        {%endif%}
+      </td>
+    </tr>
+
+    {%endfor%}
+  </table>
+</div>
+
+{% endblock %}
